@@ -13,7 +13,10 @@ use rand::RngCore;
 use std::{collections::BTreeSet, fmt::Debug};
 
 pub mod hyperplonk;
+pub mod hyperplonk_brakedown;
 pub mod unihyperplonk;
+
+pub use hyperplonk_brakedown::{HyperPlonkBrakedown, HyperPlonkBrakedownSpec3};
 
 pub trait PlonkishBackend<F: Field>: Clone + Debug {
     type Pcs: PolynomialCommitmentScheme<F>;

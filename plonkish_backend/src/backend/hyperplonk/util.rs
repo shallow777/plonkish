@@ -3,9 +3,11 @@ pub mod common;
 pub mod anemoi;
 pub mod merkle;
 pub mod vanilla_plonk;
+pub mod shift_open_test;
 
 // Re-export all items for backward compatibility
 pub use common::*;
 pub use anemoi::*;
 pub use merkle::*;
 pub use vanilla_plonk::*;
+pub use shift_open_test::*;

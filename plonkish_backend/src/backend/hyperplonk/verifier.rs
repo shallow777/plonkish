@@ -19,7 +19,7 @@ use crate::{
 use std::collections::{BTreeMap, BTreeSet, HashMap};
 
 #[allow(clippy::type_complexity)]
-pub(super) fn verify_zero_check<F: PrimeField>(
+pub(crate) fn verify_zero_check<F: PrimeField>(
     num_vars: usize,
     expression: &Expression<F>,
     instances: &[Vec<F>],

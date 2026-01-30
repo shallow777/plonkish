@@ -332,7 +332,7 @@ pub(crate) fn permutation_z_polys<F: PrimeField, R: Rotatable + From<usize>>(
 }
 
 #[allow(clippy::type_complexity)]
-pub(super) fn prove_zero_check<F: PrimeField>(
+pub(crate) fn prove_zero_check<F: PrimeField>(
     num_instance_poly: usize,
     expression: &Expression<F>,
     polys: &[&MultilinearPolynomial<F>],

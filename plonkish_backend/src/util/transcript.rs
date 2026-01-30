@@ -262,3 +262,31 @@ impl<F: PrimeField, W: io::Write> TranscriptWrite<Output<Keccak256>, F> for Kecc
         Ok(())
     }
 }
+
+// Support for 32-byte hash values (used by Brakedown's MerkleNode)
+impl<H: Hash, F: PrimeField, S> Transcript<[u8; 32], F> for FiatShamirTranscript<H, S> {
+    fn common_commitment(&mut self, comm: &[u8; 32]) -> Result<(), Error> {
+        self.state.update(comm);
+        Ok(())
+    }
+}
+
+impl<H: Hash, F: PrimeField, R: io::Read> TranscriptRead<[u8; 32], F> for FiatShamirTranscript<H, R> {
+    fn read_commitment(&mut self) -> Result<[u8; 32], Error> {
+        let mut bytes = [0u8; 32];
+        self.stream
+            .read_exact(&mut bytes)
+            .map_err(|err| Error::Transcript(err.kind(), err.to_string()))?;
+        <Self as Transcript<[u8; 32], F>>::common_commitment(self, &bytes)?;
+        Ok(bytes)
+    }
+}
+
+impl<H: Hash, F: PrimeField, W: io::Write> TranscriptWrite<[u8; 32], F> for FiatShamirTranscript<H, W> {
+    fn write_commitment(&mut self, bytes: &[u8; 32]) -> Result<(), Error> {
+        <Self as Transcript<[u8; 32], F>>::common_commitment(self, bytes)?;
+        self.stream
+            .write_all(bytes)
+            .map_err(|err| Error::Transcript(err.kind(), err.to_string()))
+    }
+}

@@ -239,7 +239,7 @@ pub trait BrakedownSpec: Debug {
 macro_rules! impl_spec_128 {
     ($(($name:ident, $alpha:literal, $beta:literal, $r:literal)),*) => {
         $(
-            #[derive(Debug)]
+            #[derive(Clone, Debug, Default, Serialize, Deserialize)]
             pub struct $name;
             impl BrakedownSpec for $name {
                 const LAMBDA: f64 = 128.0;
@@ -260,6 +260,31 @@ impl_spec_128!(
     (BrakedownSpec5, 0.2110, 0.0970, 1.616),
     (BrakedownSpec6, 0.2380, 0.1205, 1.720)
 );
+
+/// Test-only Brakedown spec with weak security for fast testing
+/// DO NOT USE IN PRODUCTION!
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
+pub struct BrakedownSpecTest;
+
+impl BrakedownSpec for BrakedownSpecTest {
+    const LAMBDA: f64 = 8.0;   // Weak security for testing only!
+    const ALPHA: f64 = 0.1780; // Same as Spec3
+    const BETA: f64 = 0.0610;  // Same as Spec3
+    const R: f64 = 1.521;      // Same as Spec3
+    // num_column_opening ≈ 413 (8x smaller than Spec3)
+}
+
+/// Ultra-weak test spec for very fast unit tests (DO NOT USE IN PRODUCTION!)
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
+pub struct BrakedownSpecMicro;
+
+impl BrakedownSpec for BrakedownSpecMicro {
+    const LAMBDA: f64 = 4.0;   // Extremely weak security, for unit tests only!
+    const ALPHA: f64 = 0.25;   // Simpler parameters
+    const BETA: f64 = 0.15;    // Simpler parameters  
+    const R: f64 = 2.0;        // Simpler parameters
+    // This gives: delta = 0.8, num_column_opening ≈ 6
+}
 
 #[derive(Clone, Copy, Debug, Serialize, Deserialize)]
 pub struct SparseMatrixDimension {

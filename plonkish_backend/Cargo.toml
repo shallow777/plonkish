@@ -51,3 +51,8 @@ required-features = ["benchmark"]
 name = "pcs"
 harness = false
 required-features = ["benchmark"]
+
+[[bench]]
+name = "shift_open"
+harness = false
+required-features = ["benchmark"]

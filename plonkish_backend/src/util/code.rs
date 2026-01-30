@@ -2,7 +2,7 @@ mod brakedown;
 
 pub use brakedown::{
     Brakedown, BrakedownSpec, BrakedownSpec1, BrakedownSpec2, BrakedownSpec3, BrakedownSpec4,
-    BrakedownSpec5, BrakedownSpec6,
+    BrakedownSpec5, BrakedownSpec6, BrakedownSpecTest, BrakedownSpecMicro,
 };
 
 pub trait LinearCodes<F>: Sync + Send {

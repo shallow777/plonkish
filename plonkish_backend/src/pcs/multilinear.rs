@@ -4,8 +4,13 @@ use crate::{
     Error,
 };
 
+mod brakedown;
 mod zeromorph;
 
+pub use brakedown::{
+    BrakedownCommitment, BrakedownParam, BrakedownPcs, BrakedownProverParam,
+    BrakedownVerifierParam, MerkleNode, MerkleTree,
+};
 pub use zeromorph::{Zeromorph, ZeromorphKzgProverParam, ZeromorphKzgVerifierParam};
 
 fn validate_input<'a, F: Field>(
