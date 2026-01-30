@@ -26,6 +26,7 @@ rayon = { version = "1.5.3", optional = true }
 
 # frontend-halo2
 halo2_proofs = { git = "https://github.com/han0110/halo2.git", branch = "feature/for-benchmark", optional = true }
+zkwasm_halo2 = { package = "halo2_proofs", git = "https://github.com/WindOctober/halo2-gpu-specific.git", branch = "zkwasm-halo2-hyper" }
 
 [dev-dependencies]
 paste = "1.0.11"
